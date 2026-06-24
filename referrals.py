@@ -36,3 +36,16 @@ REFERRALS = {
     }
 
 }
+
+
+import hashlib
+
+
+SECRET_KEY = "SUPER_SECRET_2026"
+
+
+def generate_partner_code(user_id):
+
+    return hashlib.sha256(
+        f"{user_id}{SECRET_KEY}".encode()
+    ).hexdigest()[:16]
