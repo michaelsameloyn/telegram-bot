@@ -117,6 +117,9 @@ async def start(message: Message, command: CommandStart):
     # Уведомление администратора
     # ==========================
 
+    balance = get_bonus_balance(
+    user.id
+)
     admin_text = (
 
         "🟢 Новая заявка\n\n"
@@ -126,6 +129,8 @@ async def start(message: Message, command: CommandStart):
         f"🔗 Username: {username}\n"
 
         f"🆔 ID: {user.id}\n"
+
+        f"💰 Бонусов: {balance}\n"
 
         f"👥 Реферал: {referral_name}\n"
 
@@ -166,3 +171,95 @@ async def start(message: Message, command: CommandStart):
             reply_markup=user_keyboard
 
         )
+
+@router.callback_query(
+    F.data == "bonus_balance"
+)
+async def bonus_balance(
+    callback: CallbackQuery
+):
+
+    balance = get_bonus_balance(
+        callback.from_user.id
+    )
+
+    await callback.message.answer(
+
+        f"💰 Ваш баланс бонусов:\n\n"
+        f"{balance} бонусов"
+
+    )
+
+    await callback.answer()
+
+@router.callback_query(
+    F.data == "join_referral"
+)
+async def join_referral(
+    callback: CallbackQuery
+):
+
+    user = callback.from_user
+
+    code = generate_partner_code(
+        user.id
+    )
+
+    become_partner(
+        user.id,
+        code
+    )
+
+    referral_link = (
+
+        f"https://t.me/"
+        f"{BOT_USERNAME}"
+        f"?start={code}"
+
+    )
+
+    balance = get_bonus_balance(
+        user.id
+    )
+
+    await callback.message.answer(
+
+        "🎉 Вы стали участником реферальной программы!\n\n"
+
+        f"🔗 Ваша ссылка:\n{referral_link}\n\n"
+
+        "👤 Пользователь получит скидку 10% "
+        "на первый заказ.\n\n"
+
+        "💰 Вы получите 300 бонусов "
+        "после его заказа от 3000 ₽.\n\n"
+
+        "✅ Бонусами можно оплатить "
+        "до 100% следующих заказов.\n\n"
+
+        "📊 Ваш процент по программе: 10%\n\n"
+
+        f"💰 Ваш баланс: {balance} бонусов"
+
+    )
+
+    await callback.message.bot.send_message(
+
+        ADMIN_ID,
+
+        "🤝 Новый партнёр\n\n"
+
+        f"👤 {user.full_name}\n"
+
+        f"🔗 @{user.username}\n"
+
+        f"🆔 {user.id}\n\n"
+
+        f"💰 Бонусов: {balance}\n"
+
+        "📊 Процент: 10%"
+
+    )
+
+    await callback.answer()
+
