@@ -4,6 +4,8 @@ from aiogram import Router
 from aiogram.filters import CommandStart
 from aiogram.types import Message
 
+from services.leads import add_bonus
+
 from aiogram import F
 from aiogram.types import CallbackQuery
 
