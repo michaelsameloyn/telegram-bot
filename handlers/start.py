@@ -246,6 +246,12 @@ async def join_referral(
         user.id,
         code
     )
+    
+    REFERRALS[code] = {
+    "name": user.full_name,
+    "discount": 10,
+    "telegram_id": user.id
+}
 
     referral_link = (
 
