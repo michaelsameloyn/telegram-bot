@@ -57,6 +57,13 @@ admin_keyboard = InlineKeyboardMarkup(
                 text="👥 Рефералы",
                 callback_data="referrals"
             )
+        ],
+        
+        [
+            InlineKeyboardButton(
+                text="💰 Начислить бонусы",
+                callback_data="give_bonus_info"
+            )
         ]
 
     ]
