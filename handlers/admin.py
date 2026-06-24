@@ -38,34 +38,6 @@ async def all_leads(callback: CallbackQuery):
 
     await callback.message.answer(text)
 
-
-@router.callback_query(F.data == "referrals")
-async def referrals(callback: CallbackQuery):
-
-    if callback.from_user.id != ADMIN_ID:
-        return
-
-    text = "<b>👥 Все рефералы</b>\n\n"
-
-    # ВАЖНО: правильный отступ (у тебя тут была ошибка)
-    bot_name = BOT_USERNAME
-
-    for code, data in REFERRALS.items():
-
-        text += (
-
-    f"👤 {data['name']}\n"
-
-    f"📊 Скидка: {data['discount']}%\n"
-
-    f"🔑 Код: {code}\n"
-
-    f"🔗 https://t.me/{BOT_USERNAME}?start={code}\n\n"
-
-)
-
-    await callback.message.answer(text)
-
 @router.callback_query(
     F.data == "give_bonus_info"
 )
