@@ -66,17 +66,17 @@ async def start(
 
     if command.args:
 
-    code = command.args.lower()
+        code = command.args.lower()
 
-    partner = get_partner_by_code(code)
+        partner = get_partner_by_code(code)
 
-    if partner:
+        if partner:
+    
+            referral_code = code
 
-        referral_code = code
+            referral_name = partner["full_name"]
 
-        referral_name = partner["full_name"]
-
-        discount = 10
+            discount = 10
 
     created_at = datetime.now().strftime(
         "%d.%m.%Y %H:%M"
