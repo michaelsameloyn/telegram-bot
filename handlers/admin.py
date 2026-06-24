@@ -89,3 +89,56 @@ async def give_bonus_info(
         "/bonus 123456789 500"
 
     )
+
+from aiogram.filters import Command
+from services.leads import add_bonus
+from config import ADMIN_ID
+
+
+@router.message(Command("bonus"))
+async def bonus_command(message: Message):
+
+    if message.from_user.id != ADMIN_ID:
+        return
+
+    try:
+
+        args = message.text.split()
+
+        user_id = int(args[1])
+        amount = int(args[2])
+
+        add_bonus(
+            user_id,
+            amount
+        )
+        try:
+
+    await message.bot.send_message(
+
+        user_id,
+
+        f"🎁 Вам начислено {amount} бонусов!\n\n"
+        "Проверьте баланс бонусов в боте."
+
+    )
+
+except:
+    pass
+
+        await message.answer(
+
+            f"✅ Начислено {amount} бонусов\n"
+            f"Пользователь: {user_id}"
+
+        )
+
+    except Exception as e:
+
+        print(e)
+
+        await message.answer(
+            "Использование:\n"
+            "/bonus USER_ID СУММА"
+        )
+
