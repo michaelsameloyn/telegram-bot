@@ -36,6 +36,43 @@ from config import (
 
 router = Router()
 
+@router.message(F.text.startswith("/bonus"))
+async def bonus_command(
+    message: Message
+):
+
+    if message.from_user.id != ADMIN_ID:
+        return
+
+    try:
+
+        parts = message.text.split()
+
+        user_id = int(parts[1])
+
+        amount = int(parts[2])
+
+        add_bonus(
+            user_id,
+            amount
+        )
+
+        await message.answer(
+
+            f"✅ Пользователю {user_id}\n"
+            f"начислено {amount} бонусов"
+
+        )
+
+    except:
+
+        await message.answer(
+
+            "Использование:\n"
+            "/bonus USER_ID СУММА"
+
+        )
+        
 @router.message(CommandStart())
 async def start(message: Message, command: CommandStart):
 
