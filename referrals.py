@@ -43,6 +43,21 @@ import hashlib
 
 SECRET_KEY = "SUPER_SECRET_2026"
 
+cur.execute("""
+SELECT is_partner
+FROM leads
+WHERE telegram_id=?
+""", (user.id,))
+
+row = cur.fetchone()
+
+if row and row["is_partner"] == 1:
+
+    await callback.message.answer(
+        "✅ Вы уже участвуете в реферальной программе."
+    )
+
+    return
 
 def generate_partner_code(user_id):
 
