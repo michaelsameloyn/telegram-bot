@@ -5,6 +5,8 @@ from config import ADMIN_ID, BOT_USERNAME
 from services.leads import get_all_leads
 from referrals import REFERRALS
 
+from services.leads import add_bonus
+
 router = Router()
 
 
@@ -57,3 +59,27 @@ async def referrals(callback: CallbackQuery):
         )
 
     await callback.message.answer(text)
+
+@router.callback_query(
+    F.data == "give_bonus_info"
+)
+async def give_bonus_info(
+    callback: CallbackQuery
+):
+
+    if callback.from_user.id != ADMIN_ID:
+        return
+
+    await callback.message.answer(
+
+        "Для начисления бонусов:\n\n"
+
+        "Напишите команду:\n\n"
+
+        "/bonus USER_ID СУММА\n\n"
+
+        "Пример:\n"
+
+        "/bonus 123456789 500"
+
+    )
