@@ -53,10 +53,16 @@ async def referrals(callback: CallbackQuery):
     for code, data in REFERRALS.items():
 
         text += (
-            f"👤 {data['name']}\n"
-            f"🎁 Скидка: {data['discount']}%\n"
-            f"🔗 https://t.me/{bot_name}?start={code}\n\n"
-        )
+
+    f"👤 {data['name']}\n"
+
+    f"📊 Скидка: {data['discount']}%\n"
+
+    f"🔑 Код: {code}\n"
+
+    f"🔗 https://t.me/{BOT_USERNAME}?start={code}\n\n"
+
+)
 
     await callback.message.answer(text)
 
