@@ -11,6 +11,13 @@ from aiogram.types import CallbackQuery
 
 from config import ADMIN_ID
 
+from services.leads import (
+    add_lead,
+    get_bonus_balance,
+    become_partner,
+    get_partner_by_code
+)
+
 from keyboards import (
     user_keyboard,
     admin_keyboard
@@ -59,19 +66,17 @@ async def start(
 
     if command.args:
 
-        code = command.args.lower()
+    code = command.args.lower()
 
-        if code in REFERRALS:
+    partner = get_partner_by_code(code)
 
-            ref = REFERRALS[code]
+    if partner:
 
-            if ref["active"]:
+        referral_code = code
 
-                referral_code = code
+        referral_name = partner["full_name"]
 
-                referral_name = ref["name"]
-
-                discount = ref["discount"]
+        discount = 10
 
     created_at = datetime.now().strftime(
         "%d.%m.%Y %H:%M"
@@ -212,13 +217,7 @@ async def join_referral(
         user.id,
         code
     )
-    
-    REFERRALS[code] = {
-    "name": user.full_name,
-    "discount": 10,
-    "telegram_id": user.id
-}
-
+ 
     referral_link = (
 
         f"https://t.me/"
