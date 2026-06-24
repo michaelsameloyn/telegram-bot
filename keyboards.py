@@ -18,12 +18,25 @@ user_keyboard = InlineKeyboardMarkup(
                 text="🛒 Сделать заказ",
                 url=CONTACT_URL
             )
+        ],
+
+        [
+            InlineKeyboardButton(
+                text="💰 Баланс бонусов",
+                callback_data="bonus_balance"
+            )
+        ],
+
+        [
+            InlineKeyboardButton(
+                text="🤝 Присоединиться к реферальной программе",
+                callback_data="join_referral"
+            )
         ]
 
     ]
 
 )
-
 # ==========================================
 # ADMIN
 # ==========================================
