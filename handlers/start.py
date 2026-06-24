@@ -38,8 +38,13 @@ from config import (
 
 router = Router()
 
+from aiogram.filters import CommandObject
+
 @router.message(CommandStart())
-async def start(message: Message, command: CommandStart):
+async def start(
+    message: Message,
+    command: CommandObject
+):
 
     user = message.from_user
 
