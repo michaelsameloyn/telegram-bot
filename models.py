@@ -4,6 +4,8 @@ from database import cur, conn
 # USERS TABLE
 # ==========================================
 
+from database import cur, conn
+
 cur.execute("""
 CREATE TABLE IF NOT EXISTS leads (
 
@@ -21,8 +23,15 @@ CREATE TABLE IF NOT EXISTS leads (
 
     discount INTEGER,
 
-    created_at TEXT
+    created_at TEXT,
 
+    bonuses INTEGER DEFAULT 0,
+
+    referral_percent INTEGER DEFAULT 10,
+
+    is_partner INTEGER DEFAULT 0,
+
+    personal_ref_code TEXT
 )
 """)
 
