@@ -16,14 +16,9 @@ from keyboards import (
     admin_keyboard
 )
 
-from referrals import REFERRALS
+from referrals import generate_partner_code
 
 from services.leads import add_lead
-
-from referrals import (
-    REFERRALS,
-    generate_partner_code
-)
 
 from services.leads import (
     add_lead,
