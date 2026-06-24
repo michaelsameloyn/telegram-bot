@@ -4,6 +4,9 @@ from aiogram import Router
 from aiogram.filters import CommandStart
 from aiogram.types import Message
 
+from aiogram import F
+from aiogram.types import CallbackQuery
+
 from config import ADMIN_ID
 
 from keyboards import (
@@ -14,6 +17,22 @@ from keyboards import (
 from referrals import REFERRALS
 
 from services.leads import add_lead
+
+from referrals import (
+    REFERRALS,
+    generate_partner_code
+)
+
+from services.leads import (
+    add_lead,
+    get_bonus_balance,
+    become_partner
+)
+
+from config import (
+    ADMIN_ID,
+    BOT_USERNAME
+)
 
 router = Router()
 
