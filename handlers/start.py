@@ -227,6 +227,9 @@ async def bonus_balance(
 
     )
 
+    await callback.answer()
+
+
     cur.execute("""
 SELECT is_partner
 FROM leads
@@ -243,8 +246,6 @@ if row and row["is_partner"] == 1:
 
     return
 
-
-    await callback.answer()
 
 @router.callback_query(
     F.data == "join_referral"
