@@ -230,23 +230,6 @@ async def bonus_balance(
     await callback.answer()
 
 
-    cur.execute("""
-SELECT is_partner
-FROM leads
-WHERE telegram_id=?
-""", (user.id,))
-
-row = cur.fetchone()
-
-if row and row["is_partner"] == 1:
-
-    await callback.message.answer(
-        "✅ Вы уже участвуете в реферальной программе."
-    )
-
-    return
-
-
 @router.callback_query(
     F.data == "join_referral"
 )
